@@ -37,7 +37,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/VAADIN/**", "/favicon.ico",
                 Application.LOGIN_URL, Application.LOGIN_PROCESSING_URL,
-                Application.LOGIN_FAILURE_URL, Application.LOGOUT_URL)
+                Application.LOGIN_FAILURE_URL, Application.LOGOUT_URL,
+                Application.LOGOUT_PROCESSING_URL)
             .permitAll().anyRequest().authenticated());
         http.csrf(csrfCustomizer -> csrfCustomizer.disable());
 
@@ -46,7 +47,16 @@ public class SecurityConfig {
                 .failureUrl(Application.LOGIN_FAILURE_URL)
                 .successHandler(successHandler).permitAll());
 
-        http.logout(config -> config.logoutSuccessUrl(Application.LOGOUT_URL));
+        http.logout(config -> config
+            .logoutRequestMatcher(request -> Application.LOGOUT_PROCESSING_URL
+                .equals(request.getServletPath())
+                && "GET".equals(request.getMethod()))
+            .logoutUrl(Application.LOGOUT_PROCESSING_URL)
+            .invalidateHttpSession(true)
+            .clearAuthentication(true)
+            .deleteCookies("JSESSIONID")
+            .logoutSuccessUrl(Application.LOGOUT_URL)
+            .permitAll());
 
         return http.build();
     }
