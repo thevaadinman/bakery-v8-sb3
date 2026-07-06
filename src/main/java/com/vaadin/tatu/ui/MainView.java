@@ -100,8 +100,9 @@ public class MainView extends MainViewDesign implements ViewDisplay {
     public void logout() {
         ViewLeaveAction doLogout = () -> {
             UI ui = getUI();
-            ui.getSession().getSession().invalidate();
-            ui.getPage().reload();
+            // Delegate logout to Spring Security so logout handlers and redirect
+            // configuration are applied consistently.
+            ui.getPage().setLocation("logout");
         };
 
         navigationManager.runAfterLeaveConfirmation(doLogout);
