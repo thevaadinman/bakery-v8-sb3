@@ -8,10 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 import com.vaadin.tatu.app.Application;
-import com.vaadin.tatu.backend.data.Role;
-
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
@@ -30,10 +29,16 @@ public class SecurityConfig {
         // Not using Spring CSRF here to be able to use plain HTML for the login
         // page
 
+        http.securityContext(securityContext -> securityContext
+            .securityContextRepository(
+                new HttpSessionSecurityContextRepository())
+            .requireExplicitSave(false));
+
         http.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/VAADIN/**")
-            .permitAll().requestMatchers("/**")
-                .hasAnyAuthority(Role.getAllRoles()));
+            .requestMatchers("/VAADIN/**", "/favicon.ico",
+                Application.LOGIN_URL, Application.LOGIN_PROCESSING_URL,
+                Application.LOGIN_FAILURE_URL, Application.LOGOUT_URL)
+            .permitAll().anyRequest().authenticated());
         http.csrf(csrfCustomizer -> csrfCustomizer.disable());
 
         http.formLogin(config -> config.loginPage(Application.LOGIN_URL)

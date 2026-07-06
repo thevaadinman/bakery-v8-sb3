@@ -15,6 +15,7 @@
 	<name>My-Bakery</name>
 
 	<properties>
+		<java.runtime.args>--enable-native-access=ALL-UNNAMED</java.runtime.args>
 		<vaadin.version>8.31.1</vaadin.version>
 		<vaadin-spring.version>4.5-SNAPSHOT</vaadin-spring.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
@@ -263,6 +264,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<jvmArguments>${java.runtime.args}</jvmArguments>
+				</configuration>
 			</plugin>
 <!-- 			<plugin> -->
 <!-- 				<groupId>org.apache.maven.plugins</groupId> -->
@@ -317,6 +321,7 @@
 						</executions>
 						<configuration>
 							<maxAttempts>120</maxAttempts>
+							<jvmArguments>${java.runtime.args}</jvmArguments>
 						</configuration>
 					</plugin>
 
