@@ -20,6 +20,7 @@
 		<vaadin-spring.version>4.5-SNAPSHOT</vaadin-spring.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 
+		<maven.compiler.release>17</maven.compiler.release>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<vaadin.widgetset.mode>local</vaadin.widgetset.mode>
