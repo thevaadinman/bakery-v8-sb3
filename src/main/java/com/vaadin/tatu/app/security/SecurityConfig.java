@@ -5,11 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.vaadin.tatu.app.Application;
 import com.vaadin.tatu.backend.data.Role;
@@ -33,8 +31,8 @@ public class SecurityConfig {
         // page
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(new AntPathRequestMatcher("/VAADIN/**"))
-                .permitAll().requestMatchers(new AntPathRequestMatcher("/**"))
+            .requestMatchers("/VAADIN/**")
+            .permitAll().requestMatchers("/**")
                 .hasAnyAuthority(Role.getAllRoles()));
         http.csrf(csrfCustomizer -> csrfCustomizer.disable());
 

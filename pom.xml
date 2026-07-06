@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.9</version>
+		<version>4.1.0</version>
 		<relativePath/>
 	</parent>
 
@@ -15,8 +15,8 @@
 	<name>My-Bakery</name>
 
 	<properties>
-		<vaadin.version>8.27.0</vaadin.version>
-		<vaadin-spring.version>4.0.0</vaadin-spring.version>
+		<vaadin.version>8.31.1</vaadin.version>
+		<vaadin-spring.version>4.5-SNAPSHOT</vaadin-spring.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 
 		<maven.compiler.source>17</maven.compiler.source>
